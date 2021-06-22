@@ -15,6 +15,7 @@ public class CardDeliveryTest {
     @BeforeEach
     void setUp() {
         open("http://localhost:7777/");
+            driver().close();
     }
 
     @Test
