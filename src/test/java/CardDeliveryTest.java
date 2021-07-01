@@ -112,6 +112,7 @@ public class CardDeliveryTest {
     }
         
     @Test
+    void shouldTestVisiblity() {
         String orderDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id='city'] input").setValue("Москва");
         $(byText("Москва")).click();
