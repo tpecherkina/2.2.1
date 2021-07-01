@@ -1,14 +1,13 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-        import java.time.Duration;
-        import java.time.LocalDate;
-        import java.time.format.DateTimeFormatter;
-
-        import static com.codeborne.selenide.Condition.*;
-        import static com.codeborne.selenide.Selectors.*;
-        import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
 
@@ -19,7 +18,7 @@ public class CardDeliveryTest {
     }
 
     @Test
-            void shouldTestCorrectFilling() {
+    void shouldTestCorrectFilling() {
         String orderDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id='city'] input").setValue("Москва");
         $(byText("Москва")).click();
@@ -111,5 +110,17 @@ public class CardDeliveryTest {
         $$("button").find(exactText("Забронировать")).click();
         $(".input_invalid .input__sub").shouldHave(text("Поле обязательно для заполнения"));
     }
+        
+    @Test
+        String orderDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[data-test-id='city'] input").setValue("Москва");
+        $(byText("Москва")).click();
+        $("[data-test-id=date] input").doubleClick().sendKeys(orderDate);
+        $("[data-test-id=name] input").setValue("Татьяна");
+        $("[data-test-id=phone] input").setValue("+79193437770");
+        $(".checkbox__box").click();
+        $$("button").find(exactText("Забронировать")).click();
+        $("[data-test-id='notification'] .notification__content").shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText("Встреча успешно забронирована на " + planningDate));
 
+}
 }
