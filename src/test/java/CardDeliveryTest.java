@@ -27,7 +27,8 @@ public class CardDeliveryTest {
         $("[data-test-id=phone] input").setValue("+79193437770");
         $(".checkbox__box").click();
         $$("button").find(exactText("Забронировать")).click();
-        $("[data-test-id=notification]").shouldHave(text("Встреча успешно забронирована на " + orderDate), Duration.ofSeconds(15));
+        $("[data-test-id='notification'] .notification__content").shouldBe(visible, Duration.ofSeconds(15)).shouldHave(text("Встреча успешно забронирована на " + orderDate));
+
     }
 
     @Test
@@ -111,17 +112,4 @@ public class CardDeliveryTest {
         $(".input_invalid .input__sub").shouldHave(text("Поле обязательно для заполнения"));
     }
         
-    @Test
-    void shouldTestVisiblity() {
-        String orderDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        $("[data-test-id='city'] input").setValue("Москва");
-        $(byText("Москва")).click();
-        $("[data-test-id=date] input").doubleClick().sendKeys(orderDate);
-        $("[data-test-id=name] input").setValue("Татьяна");
-        $("[data-test-id=phone] input").setValue("+79193437770");
-        $(".checkbox__box").click();
-        $$("button").find(exactText("Забронировать")).click();
-        $("[data-test-id='notification'] .notification__content").shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText("Встреча успешно забронирована на " + planningDate));
-
-}
 }
